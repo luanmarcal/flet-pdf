@@ -16,7 +16,6 @@ def main(page: ft.Page):
 
     rail = ft.NavigationRail(
         selected_index=0,
-        extended=True,
         min_width=100,
         min_extended_width=300,
         group_alignment=ft.VerticalAlignment.START,
@@ -49,33 +48,54 @@ def main(page: ft.Page):
         on_change=lambda e: print("Selected destination:", e.control.selected_index),
     )
 
+    test2 = ft.ResponsiveRow(
+        controls=[
+            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
+            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
+            # ft.TextButton(text="Text button"),
+        ],
+        # bgcolor=ft.colors.BLUE,
+        # padding=10,
+        # expand=True,
+    )
+
+    test3 = ft.ResponsiveRow(
+        controls=[
+            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
+            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
+        ],
+    )
+
+    test = ft.Column(
+        [
+            ft.Container(
+                content=test2,
+                bgcolor=ft.colors.BLUE,
+                padding=10,
+                height=100,
+                width="100%",
+            ),
+            ft.Container(
+                content=test3,
+                bgcolor=ft.colors.RED,
+                padding=10,
+                expand=True,
+                width="100%",
+            ),
+        ],
+    )
+
     page.layout = ft.Row(
         [
             rail,
             ft.VerticalDivider(width=1),
             ft.Container(
+                content=test,
+                bgcolor=ft.colors.GREEN,
+                padding=10,
                 expand=True,
-                content=ft.Text("Container 1"),
-                bgcolor=ft.colors.GREEN_100,
+                # border=ft.border.all(1, ft.colors.OUTLINE),
             ),
-            # ft.Column(
-            #     # expand=True,
-            #     width=500,
-            #     alignment=ft.MainAxisAlignment.CENTER,
-            #     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            #     controls=[
-            #         ft.Container(
-            #             expand=1,
-            #             content=ft.Text("Container 1"),
-            #             bgcolor=ft.colors.GREEN_100,
-            #         ),
-            #         ft.Container(
-            #             expand=2,
-            #             content=ft.Text("Container 2"),
-            #             bgcolor=ft.colors.RED_100,
-            #         ),
-            #     ],
-            # ),
         ],
         expand=True,
     )
