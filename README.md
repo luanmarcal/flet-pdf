@@ -54,6 +54,7 @@ page.appbar
 
 ## Useful Links
 - [Framework Documentation](https://flet.dev/docs/)
+- [Icons Flet](https://gallery.flet.dev/icons-browser/)
 - [Project Video in Flet](https://www.youtube.com/watch?v=kGNp24U5Oyo)
 - [Example Code Project in Flet_01](https://github.com/flet-dev/examples/blob/main/python/tutorials/calc/calc.py)
 - [Example Code Project in Flet_02](https://github.com/flet-dev/examples/blob/main/python/tutorials/chat/chat.py)
