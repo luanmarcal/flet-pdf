@@ -1,15 +1,18 @@
 # FLET-PDF
 
-To execute the app:
+## Run App
 
 ```
 .venv\Scripts\activate
 flet run
 ```
 
-# Project Notes
+> If Windows does not allow the script to run, run the following command in PowerShell from the project root:
+```
+Set-ExecutionPolicy RemoteSigned -Scope Process
+```
 
-## Code Snippets for Potential Use:
+## Code Snippets for Potential Use
 ```python
 shadow = ft.BoxShadow(blur_radius=300, color=ft.colors.CYAN, offset=(0, 0), blur_style="outer"),
 
