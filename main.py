@@ -12,13 +12,11 @@ def main(page: ft.Page):
     Args:
         page (ft.Page): Página principal da aplicação
     """
+    page.title = "Flet App"
     page.theme_mode = ft.ThemeMode.DARK
 
-    rail = ft.NavigationRail(
+    navigation_rail = ft.NavigationRail(
         selected_index=0,
-        min_width=100,
-        min_extended_width=300,
-        group_alignment=ft.VerticalAlignment.START,
         destinations=[
             ft.NavigationRailDestination(
                 icon=ft.icons.LAYERS_OUTLINED,
@@ -48,59 +46,74 @@ def main(page: ft.Page):
         on_change=lambda e: print("Selected destination:", e.control.selected_index),
     )
 
-    test2 = ft.ResponsiveRow(
+    header_content_row = ft.Row(
         controls=[
-            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
-            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
-            # ft.TextButton(text="Text button"),
+            ft.IconButton(
+                icon=ft.icons.CHECK_ROUNDED,
+                icon_color=ft.colors.GREY_800,
+                icon_size=30,
+                tooltip="Confirmar",
+            ),
+            ft.IconButton(
+                icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
+                icon_color=ft.colors.GREY_800,
+                icon_size=30,
+                tooltip="Visualizar",
+            ),
         ],
-        # bgcolor=ft.colors.BLUE,
-        # padding=10,
-        # expand=True,
     )
 
-    test3 = ft.ResponsiveRow(
+    central_content_row = ft.Row(
         controls=[
-            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
-            ft.Text("Container with background vdsadasdasdasdasdsaddasdasdasd"),
+            ft.IconButton(
+                icon=ft.icons.ADD_ROUNDED,
+                icon_color=ft.colors.BLUE,
+                icon_size=50,
+                tooltip="Adicionar",
+                on_click=lambda e: print("Adicionar"),
+            ),
         ],
     )
 
-    test = ft.Column(
+    content_column = ft.Column(
         [
             ft.Container(
-                content=test2,
-                bgcolor=ft.colors.BLUE,
+                content=header_content_row,
+                border=ft.border.all(1, ft.colors.CYAN),
                 padding=10,
+                border_radius=5,
                 height=100,
-                width="100%",
             ),
             ft.Container(
-                content=test3,
-                bgcolor=ft.colors.RED,
+                content=central_content_row,
+                border=ft.border.all(1, ft.colors.CYAN),
                 padding=10,
+                border_radius=5,
                 expand=True,
-                width="100%",
+                alignment=ft.alignment.top_left,
             ),
         ],
     )
 
-    page.layout = ft.Row(
+    main_row = ft.Row(
         [
-            rail,
+            navigation_rail,
             ft.VerticalDivider(width=1),
             ft.Container(
-                content=test,
-                bgcolor=ft.colors.GREEN,
+                content=content_column,
                 padding=10,
                 expand=True,
-                # border=ft.border.all(1, ft.colors.OUTLINE),
             ),
         ],
-        expand=True,
     )
 
-    page.add(page.layout)
+    main_layout = ft.Container(
+        content=main_row,
+        expand=True,
+        padding=10,
+    )
+
+    page.add(main_layout)
     page.update()
 
 
