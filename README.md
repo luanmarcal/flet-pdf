@@ -3,7 +3,12 @@
 ## Run App
 
 ```
+python -m venv .venv
 .venv\Scripts\activate
+pip install flet
+flet --version
+```
+```
 flet run
 ```
 
