@@ -3,6 +3,7 @@ Este módulo contém a função principal da aplicação
 """
 
 import flet as ft
+import test
 
 
 def main(page: ft.Page):
@@ -12,7 +13,7 @@ def main(page: ft.Page):
     Args:
         page (ft.Page): Página principal da aplicação
     """
-    page.title = "Flet App"
+    page.title = "PDF Tools"
     page.theme_mode = ft.ThemeMode.DARK
 
     navigation_rail = ft.NavigationRail(
@@ -22,25 +23,25 @@ def main(page: ft.Page):
                 icon=ft.icons.LAYERS_OUTLINED,
                 selected_icon=ft.icons.LAYERS,
                 label="Juntar PDF",
-                padding=20,
+                padding=30,
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.PIE_CHART_OUTLINE,
                 selected_icon=ft.icons.PIE_CHART,
                 label="Dividir PDF",
-                padding=20,
+                padding=30,
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.IMAGE_OUTLINED,
                 selected_icon=ft.icons.IMAGE,
                 label="JPG para PDF",
-                padding=20,
+                padding=30,
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.PICTURE_AS_PDF_OUTLINED,
                 selected_icon=ft.icons.PICTURE_AS_PDF,
                 label="PDF para JPG",
-                padding=20,
+                padding=30,
             ),
         ],
         on_change=lambda e: print("Selected destination:", e.control.selected_index),
@@ -48,6 +49,13 @@ def main(page: ft.Page):
 
     header_content_row = ft.Row(
         controls=[
+            ft.IconButton(
+                icon=ft.icons.ADD_ROUNDED,
+                icon_color=ft.colors.WHITE70,
+                icon_size=35,
+                tooltip="Adicionar",
+                on_click=lambda e: test.show_message(),
+            ),
             ft.IconButton(
                 icon=ft.icons.CHECK_ROUNDED,
                 icon_color=ft.colors.GREY_800,
@@ -63,30 +71,20 @@ def main(page: ft.Page):
         ],
     )
 
-    central_content_row = ft.Row(
-        controls=[
-            ft.IconButton(
-                icon=ft.icons.ADD_ROUNDED,
-                icon_color=ft.colors.BLUE,
-                icon_size=50,
-                tooltip="Adicionar",
-                on_click=lambda e: print("Adicionar"),
-            ),
-        ],
-    )
+    central_content_row = ft.Row()
 
     content_column = ft.Column(
         [
             ft.Container(
                 content=header_content_row,
-                border=ft.border.all(1, ft.colors.CYAN),
+                border=ft.border.all(1, ft.colors.GREY_800),
                 padding=10,
                 border_radius=5,
                 height=100,
             ),
             ft.Container(
                 content=central_content_row,
-                border=ft.border.all(1, ft.colors.CYAN),
+                border=ft.border.all(1, ft.colors.GREY_800),
                 padding=10,
                 border_radius=5,
                 expand=True,
@@ -98,7 +96,7 @@ def main(page: ft.Page):
     main_row = ft.Row(
         [
             navigation_rail,
-            ft.VerticalDivider(width=1),
+            ft.VerticalDivider(width=1, color=ft.colors.GREY_800),
             ft.Container(
                 content=content_column,
                 padding=10,
