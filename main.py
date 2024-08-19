@@ -54,7 +54,7 @@ def main(page: ft.Page):
                 icon_color=ft.colors.WHITE70,
                 icon_size=35,
                 tooltip="Adicionar",
-                on_click=lambda e: test.show_message(),
+                on_click=lambda e: None,
             ),
             ft.IconButton(
                 icon=ft.icons.CHECK_ROUNDED,
