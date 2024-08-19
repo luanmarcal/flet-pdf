@@ -9,11 +9,11 @@ pip install flet --upgrade
 flet --version
 ```
 ```
-flet run
+flet run app.py
 ```
 > For real-time development and visualization, the command below usually works well
 ```
-flet run -d -r --web
+flet run app.py -d -r --web
 ```
 
 > If Windows does not allow the script to run, run the following command in PowerShell from the project root:
