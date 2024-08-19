@@ -44,7 +44,7 @@ class MainView(FletView):
                     icon_color=ft.colors.WHITE70,
                     icon_size=35,
                     tooltip="Adicionar",
-                    on_click=lambda e: None,
+                    on_click=lambda e: controller.pick_files(),
                 ),
                 ft.IconButton(
                     icon=ft.icons.CHECK_ROUNDED,
