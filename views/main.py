@@ -44,24 +44,26 @@ class MainView(FletView):
                     icon_color=ft.colors.WHITE70,
                     icon_size=35,
                     tooltip="Adicionar",
-                    on_click=lambda e: controller.pick_files(),
+                    on_click=controller.pick_files,
                 ),
                 ft.IconButton(
                     icon=ft.icons.CHECK_ROUNDED,
                     icon_color=ft.colors.GREY_800,
                     icon_size=30,
                     tooltip="Confirmar",
+                    on_click=controller.insert_file_example,
                 ),
                 ft.IconButton(
                     icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
                     icon_color=ft.colors.GREY_800,
                     icon_size=30,
                     tooltip="Visualizar",
+                    on_click=controller.show_pdf_files,
                 ),
             ],
         )
 
-        self.central_content_row = ft.Row()
+        self.central_content_row = ft.Row([ft.Text("Size 10", size=10)])
 
         self.content_column = ft.Column(
             [
@@ -103,6 +105,5 @@ class MainView(FletView):
 
         view = [
             self.main_layout,
-            # ft.ElevatedButton(text="testeee", on_click=controller.example_function),
         ]
         super().__init__(model, view, controller)
