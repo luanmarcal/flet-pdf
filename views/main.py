@@ -41,21 +41,20 @@ class MainView(FletView):
             controls=[
                 ft.IconButton(
                     icon=ft.icons.ADD_ROUNDED,
-                    icon_color=ft.colors.WHITE70,
+                    icon_color="#B7BBC2",
                     icon_size=35,
                     tooltip="Adicionar",
                     on_click=controller.pick_files,
                 ),
                 ft.IconButton(
                     icon=ft.icons.CHECK_ROUNDED,
-                    icon_color=ft.colors.GREY_800,
+                    icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Confirmar",
-                    on_click=controller.insert_file_example,
                 ),
                 ft.IconButton(
                     icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
-                    icon_color=ft.colors.GREY_800,
+                    icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Visualizar",
                     on_click=controller.show_pdf_files,
@@ -63,24 +62,32 @@ class MainView(FletView):
             ],
         )
 
-        self.central_content_row = ft.Row([ft.Text("Size 10", size=10)])
+        self.central_content_row = ft.Row(
+            scroll=ft.ScrollMode.AUTO,
+            wrap=True,
+            spacing=30,
+            run_spacing=30,
+            controls=model.SelectedPdfFiles(),
+        )
 
         self.content_column = ft.Column(
-            [
+            controls=[
                 ft.Container(
                     content=self.header_content_row,
-                    border=ft.border.all(1, ft.colors.GREY_800),
+                    border=ft.border.all(1, "#2E3136"),
+                    margin=10,
                     padding=10,
                     border_radius=5,
                     height=100,
                 ),
                 ft.Container(
                     content=self.central_content_row,
-                    border=ft.border.all(1, ft.colors.GREY_800),
-                    padding=10,
+                    border=ft.border.all(1, "#2E3136"),
+                    padding=30,
+                    margin=10,
                     border_radius=5,
                     expand=True,
-                    alignment=ft.alignment.top_left,
+                    alignment=ft.alignment.top_center,
                 ),
             ],
         )
@@ -88,7 +95,7 @@ class MainView(FletView):
         self.main_row = ft.Row(
             [
                 self.navigation_rail,
-                ft.VerticalDivider(width=1, color=ft.colors.GREY_800),
+                ft.VerticalDivider(width=1, color="#2E3136"),
                 ft.Container(
                     content=self.content_column,
                     padding=10,

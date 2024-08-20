@@ -6,6 +6,7 @@
 python -m venv .venv
 .venv\Scripts\activate
 pip install flet --upgrade
+pip install flet-mvc
 flet --version
 ```
 ```

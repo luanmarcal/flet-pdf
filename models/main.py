@@ -7,8 +7,7 @@ import flet as ft
 #         self.name = name
 #         self.path = path
 
-
 class Model(FletModel):
     @data
-    def pdf_files_selected(self):
+    def SelectedPdfFiles(self):
         return []

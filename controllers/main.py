@@ -21,20 +21,39 @@ class Controller(FletController):
         )
 
     def pick_files_result(self, e: ft.FilePickerResultEvent):
-        print("pick_files_result")
         if e.files:
-            file_names = ", ".join([f.name for f in e.files])
-            print(f"Arquivos selecionados: {file_names}")
-        else:
-            print("Nenhum arquivo selecionado.")
+            for file in e.files:
+                print(f"Arquivo selecionado: {file.name}")
 
-    def insert_file_example(self, e):
-        print("Arquivo exemplo inserido.")
-        self.model.pdf_files_selected().append(
-            {"name": "Exemplo.pdf", "path": "exemplo.pdf"}
-        )
+                title = ft.Text(
+                    value=file.name,
+                    width=150,
+                    height=50,
+                    text_align=ft.TextAlign.CENTER,
+                    color="#B7BBC2",
+                    max_lines=2,
+                )
+
+                column = ft.Column(
+                    width=150,
+                    controls=[
+                        ft.Container(
+                            content=None,
+                            bgcolor="#252728",
+                            padding=10,
+                            border_radius=5,
+                            height=200,
+                            width=150,
+                            alignment=ft.alignment.center,
+                        ),
+                        title,
+                    ],
+                )
+
+                self.model.SelectedPdfFiles().append(column)
+
+            self.update()
 
     def show_pdf_files(self, e):
-        print("Arquivos PDF:")
-        for file in self.model.pdf_files_selected():
+        for file in self.model.SelectedPdfFiles():
             print(f"Nome: {file['name']}, Path: {file['path']}")
