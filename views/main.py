@@ -5,7 +5,7 @@ class MainView:
     def __init__(self, controller):
         self.controller = controller
 
-    def create_pdf_card(self, id, name, preview):
+    def create_pdf_card(self, id: str, name: str, preview: str):
         title = ft.Text(
             value=name,
             width=150,
@@ -26,7 +26,7 @@ class MainView:
                         icon_size=20,
                         tooltip="Remover",
                         visual_density=ft.ThemeVisualDensity.COMPACT,
-                        on_click=lambda e: self.controller.handle_remove_pdf(e),
+                        on_click=lambda event: self.controller.handle_remove_pdf(event),
                         key=id,
                     ),
                     alignment=ft.alignment.center,
@@ -58,7 +58,7 @@ class MainView:
 
         return column
 
-    def update_central_content_row(self, content_list):
+    def update_central_content_row(self, content_list: list):
         self.central_content_row.controls = content_list
         self.central_content_row.update()
 
@@ -103,14 +103,14 @@ class MainView:
                     icon_color="#B7BBC2",
                     icon_size=35,
                     tooltip="Adicionar",
-                    on_click=self.controller.pick_files,
+                    on_click=lambda _: self.controller.pick_files(),
                 ),
                 ft.IconButton(
                     icon=ft.icons.CHECK_ROUNDED,
                     icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Confirmar",
-                    on_click=self.controller.handle_merge_pdf_files,
+                    on_click=lambda _: self.controller.save_file(),
                 ),
                 ft.IconButton(
                     icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
@@ -126,6 +126,7 @@ class MainView:
             wrap=True,
             spacing=30,
             run_spacing=30,
+            controls=[],
         )
 
         self.content_column = ft.Column(

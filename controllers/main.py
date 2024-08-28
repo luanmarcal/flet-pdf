@@ -2,7 +2,7 @@ import flet as ft
 
 
 class Controller:
-    def __init__(self, page, model):
+    def __init__(self, page: ft.Page, model):
         self.page = page
         self.model = model
         self.view = None
@@ -15,9 +15,30 @@ class Controller:
         self.file_picker = ft.FilePicker(
             on_result=self.pick_files_result,
         )
-        self.page.overlay.append(self.file_picker)
+        self.save_file_dialog = ft.FilePicker(
+            on_result=self.save_file_result,
+        )
+        self.page.overlay.extend([self.file_picker, self.save_file_dialog])
 
-    def pick_files(self, event=None):
+    def save_file_result(self, event: ft.FilePickerResultEvent):
+        if event.path:
+            self.model.save_path = event.path
+            self.handle_merge_pdf_files()
+        else:
+            print("Cancelled!!")
+
+    def save_file(self):
+        pdf_files = self.model.list_pdf
+        if len(pdf_files) > 1:
+            self.save_file_dialog.save_file(
+                file_type=ft.FilePickerFileType.CUSTOM,
+                allowed_extensions=["pdf"],
+                file_name="flet_pdf_merged.pdf",
+            )
+        else:
+            print("Select more than one file")
+
+    def pick_files(self):
         self.file_picker.pick_files(
             file_type=ft.FilePickerFileType.CUSTOM,
             allowed_extensions=["pdf"],
@@ -37,15 +58,16 @@ class Controller:
 
             self.update_pdf_list()
 
-    def handle_remove_pdf(self, event):
+    def handle_remove_pdf(self, event: ft.ControlEvent):
         for file in self.model.list_pdf:
             if file.id == event.control.key:
                 self.model.remove_pdf(event.control.key)
 
         self.update_pdf_list()
 
-    def handle_merge_pdf_files(self, e=None):
+    def handle_merge_pdf_files(self):
         self.model.merge_pdf_files()
+        self.model.clear_pdf_list()
         self.update_pdf_list()
 
     def update_pdf_list(self):
