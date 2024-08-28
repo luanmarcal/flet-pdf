@@ -51,13 +51,13 @@ class MainView(FletView):
                     icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Confirmar",
+                    on_click=controller.merge_pdf_files,
                 ),
                 ft.IconButton(
                     icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
                     icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Visualizar",
-                    on_click=controller.show_pdf_files,
                 ),
             ],
         )
@@ -67,7 +67,7 @@ class MainView(FletView):
             wrap=True,
             spacing=30,
             run_spacing=30,
-            controls=model.SelectedPdfFiles(),
+            controls=model.list_pdf_render(),
         )
 
         self.content_column = ft.Column(
