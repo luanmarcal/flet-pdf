@@ -5,18 +5,15 @@ from models.main import Model
 
 
 def main(page: ft.Page):
-    # MVC set-up
     model = Model()
     controller = Controller(page, model)
-    # model.controller = controller
-    view = MainView(controller, model)
+    view = MainView(controller)
+    controller.set_view(view)
 
-    # Settings
     page.title = "Flet PDF"
     page.theme_mode = ft.ThemeMode.DARK
 
-    # Run
-    page.add(*view.content)
+    page.add(view.build())
 
 
 ft.app(target=main)

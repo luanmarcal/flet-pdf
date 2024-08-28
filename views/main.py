@@ -1,9 +1,68 @@
-from flet_mvc import FletView
 import flet as ft
 
 
-class MainView(FletView):
-    def __init__(self, controller, model):
+class MainView:
+    def __init__(self, controller):
+        self.controller = controller
+
+    def create_pdf_card(self, id, name, preview):
+        title = ft.Text(
+            value=name,
+            width=150,
+            height=50,
+            text_align=ft.TextAlign.CENTER,
+            color="#B7BBC2",
+            max_lines=2,
+        )
+
+        inner_column = ft.Column(
+            alignment=ft.MainAxisAlignment.START,
+            spacing=5,
+            controls=[
+                ft.Container(
+                    content=ft.IconButton(
+                        icon=ft.icons.CLOSE,
+                        icon_color="#B7BBC2",
+                        icon_size=20,
+                        tooltip="Remover",
+                        visual_density=ft.ThemeVisualDensity.COMPACT,
+                        on_click=lambda e: self.controller.handle_remove_pdf(e),
+                        key=id,
+                    ),
+                    alignment=ft.alignment.center,
+                ),
+                ft.Container(
+                    content=ft.Image(src=preview, border_radius=5),
+                    padding=ft.padding.only(left=18, right=18),
+                    alignment=ft.alignment.top_center,
+                ),
+            ],
+        )
+
+        column = ft.Column(
+            width=150,
+            controls=[
+                ft.Container(
+                    content=inner_column,
+                    bgcolor="#252728",
+                    padding=5,
+                    border_radius=5,
+                    height=200,
+                    width=150,
+                    alignment=ft.alignment.top_center,
+                ),
+                title,
+            ],
+            key=id,
+        )
+
+        return column
+
+    def update_central_content_row(self, content_list):
+        self.central_content_row.controls = content_list
+        self.central_content_row.update()
+
+    def build(self):
         self.navigation_rail = ft.NavigationRail(
             selected_index=0,
             destinations=[
@@ -44,14 +103,14 @@ class MainView(FletView):
                     icon_color="#B7BBC2",
                     icon_size=35,
                     tooltip="Adicionar",
-                    on_click=controller.pick_files,
+                    on_click=self.controller.pick_files,
                 ),
                 ft.IconButton(
                     icon=ft.icons.CHECK_ROUNDED,
                     icon_color="#2E3136",
                     icon_size=30,
                     tooltip="Confirmar",
-                    on_click=controller.merge_pdf_files,
+                    on_click=self.controller.handle_merge_pdf_files,
                 ),
                 ft.IconButton(
                     icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
@@ -67,7 +126,6 @@ class MainView(FletView):
             wrap=True,
             spacing=30,
             run_spacing=30,
-            controls=model.list_pdf_render(),
         )
 
         self.content_column = ft.Column(
@@ -110,7 +168,4 @@ class MainView(FletView):
             padding=10,
         )
 
-        view = [
-            self.main_layout,
-        ]
-        super().__init__(model, view, controller)
+        return self.main_layout
