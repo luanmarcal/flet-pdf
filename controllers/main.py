@@ -6,10 +6,20 @@ class Controller:
         self.page = page
         self.model = model
         self.view = None
+        self.merge_screen = None
+        self.part_screen = None
+        self.image_to_pdf_screen = None
+        self.pdf_to_image_screen = None
         self.settings()
 
-    def set_view(self, view):
+    def set_views(
+        self, view, merge_screen, part_screen, image_to_pdf_screen, pdf_to_image_screen
+    ):
         self.view = view
+        self.merge_screen = merge_screen
+        self.part_screen = part_screen
+        self.image_to_pdf_screen = image_to_pdf_screen
+        self.pdf_to_image_screen = pdf_to_image_screen
 
     def settings(self):
         self.file_picker = ft.FilePicker(
@@ -75,4 +85,20 @@ class Controller:
         for file in self.model.list_pdf:
             content_list.append(file.content)
 
-        self.view.update_central_content_row(content_list)
+        self.merge_screen.update_central_content_row(content_list)
+
+    def navigation_rail(self, index):
+        content_map = {
+            0: self.merge_screen.content_list,
+            1: self.part_screen.content_list,
+            2: self.image_to_pdf_screen.content_list,
+            3: self.pdf_to_image_screen.content_list,
+        }
+
+        if index in content_map:
+            build = content_map[index]
+            self.view.content_column.controls[0].content = build[0]
+            self.view.content_column.controls[1].content = build[1]
+            self.view.content_column.update()
+        else:
+            print("Error: Invalid index")

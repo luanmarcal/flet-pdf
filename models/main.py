@@ -1,5 +1,5 @@
-import fitz
 import os
+import fitz
 from models.pdf_file import PDFFile
 
 
@@ -15,20 +15,20 @@ class Model:
     def insert_pdf(self, pdf_file: PDFFile):
         self.list_pdf.append(pdf_file)
 
-    def remove_pdf(self, id: str):
+    def remove_pdf(self, id_card: str):
         for pdf_file in self.list_pdf:
-            if pdf_file.id == id:
+            if pdf_file.id == id_card:
                 self.list_pdf.remove(pdf_file)
                 try:
                     os.remove(pdf_file.preview)
-                except:
+                except FileNotFoundError:
                     pass
 
     def clear_pdf_list(self):
         for pdf_file in self.list_pdf:
             try:
                 os.remove(pdf_file.preview)
-            except:
+            except FileNotFoundError:
                 pass
 
         self.list_pdf.clear()

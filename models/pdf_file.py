@@ -10,7 +10,7 @@ class PDFFile:
         self.preview = self.generate_preview(self.id, path)
         self.content = None
 
-    def generate_preview(self, id: str, path: str):
+    def generate_preview(self, preview_id: str, path: str):
         pdf_document = fitz.open(path)
         page = pdf_document.load_page(0)
 
@@ -19,7 +19,7 @@ class PDFFile:
         matrix = fitz.Matrix(zoom_x, zoom_y)
 
         pix = page.get_pixmap(matrix=matrix, alpha=False)
-        preview_image_path = f"./assets/temp/preview_{id}.png"
+        preview_image_path = f"./assets/temp/preview_{preview_id}.png"
         pix.save(preview_image_path)
 
         pdf_document.close()

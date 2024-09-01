@@ -4,8 +4,9 @@ import flet as ft
 class MainView:
     def __init__(self, controller):
         self.controller = controller
+        self.main_layout = self.build()
 
-    def create_pdf_card(self, id: str, name: str, preview: str):
+    def create_pdf_card(self, card_id: str, name: str, preview: str):
         title = ft.Text(
             value=name,
             width=150,
@@ -26,8 +27,8 @@ class MainView:
                         icon_size=20,
                         tooltip="Remover",
                         visual_density=ft.ThemeVisualDensity.COMPACT,
-                        on_click=lambda event: self.controller.handle_remove_pdf(event),
-                        key=id,
+                        on_click=self.controller.handle_remove_pdf,
+                        key=card_id,
                     ),
                     alignment=ft.alignment.center,
                 ),
@@ -53,14 +54,11 @@ class MainView:
                 ),
                 title,
             ],
-            key=id,
+            key=card_id,
         )
 
         return column
 
-    def update_central_content_row(self, content_list: list):
-        self.central_content_row.controls = content_list
-        self.central_content_row.update()
 
     def build(self):
         self.navigation_rail = ft.NavigationRail(
@@ -91,48 +89,14 @@ class MainView:
                     padding=30,
                 ),
             ],
-            on_change=lambda e: print(
-                "Selected destination:", e.control.selected_index
+            on_change=lambda e: self.controller.navigation_rail(
+                e.control.selected_index
             ),
-        )
-
-        self.header_content_row = ft.Row(
-            controls=[
-                ft.IconButton(
-                    icon=ft.icons.ADD_ROUNDED,
-                    icon_color="#B7BBC2",
-                    icon_size=35,
-                    tooltip="Adicionar",
-                    on_click=lambda _: self.controller.pick_files(),
-                ),
-                ft.IconButton(
-                    icon=ft.icons.CHECK_ROUNDED,
-                    icon_color="#2E3136",
-                    icon_size=30,
-                    tooltip="Confirmar",
-                    on_click=lambda _: self.controller.save_file(),
-                ),
-                ft.IconButton(
-                    icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
-                    icon_color="#2E3136",
-                    icon_size=30,
-                    tooltip="Visualizar",
-                ),
-            ],
-        )
-
-        self.central_content_row = ft.Row(
-            scroll=ft.ScrollMode.AUTO,
-            wrap=True,
-            spacing=30,
-            run_spacing=30,
-            controls=[],
         )
 
         self.content_column = ft.Column(
             controls=[
                 ft.Container(
-                    content=self.header_content_row,
                     border=ft.border.all(1, "#2E3136"),
                     margin=10,
                     padding=10,
@@ -140,7 +104,6 @@ class MainView:
                     height=100,
                 ),
                 ft.Container(
-                    content=self.central_content_row,
                     border=ft.border.all(1, "#2E3136"),
                     padding=30,
                     margin=10,
