@@ -8,15 +8,7 @@ class ImageToPdfScreen:
 
     def build(self):
         self.header_content_row = ft.Row(
-            controls=[
-                ft.IconButton(
-                    icon=ft.icons.LAYERS_OUTLINED,
-                    icon_color="#B7BBC2",
-                    icon_size=35,
-                    tooltip="Sair",
-                    on_click=lambda _: self.controller.logout(),
-                ),
-            ],
+            controls=[],
         )
 
         self.central_content_row = ft.Row(

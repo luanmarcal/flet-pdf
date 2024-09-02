@@ -1,25 +1,33 @@
 # FLET-PDF
 
-## Run App
+## Run App Windows
 
 ```
 python -m venv .venv
 .venv\Scripts\activate
-pip install flet --upgrade
-pip install flet-mvc
-flet --version
+pip install -r requirements.txt
 ```
 ```
 flet run app.py
 ```
-> For real-time development and visualization, the command below usually works well
-```
-flet run app.py -d -r --web
-```
-
 > If Windows does not allow the script to run, run the following command in PowerShell from the project root:
 ```
 Set-ExecutionPolicy RemoteSigned -Scope Process
+```
+
+## Run App Linux
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+```
+flet run app.py
+```
+> For run web
+```
+flet run app.py -d -r --web
 ```
 
 ## Code Snippets for Potential Use

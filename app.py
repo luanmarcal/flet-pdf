@@ -1,6 +1,7 @@
 import flet as ft
 from controllers._controller import Controller
 from models._model import Model
+from database._firebase_auth import FirebaseAuth
 
 from views._layout import LayoutView
 
@@ -16,7 +17,8 @@ from views.pdf_management.pdf_to_image_screen import PdfToImageScreen
 
 def main(page: ft.Page):
     model = Model()
-    controller = Controller(page, model)
+    firebase = FirebaseAuth()
+    controller = Controller(page, model, firebase)
 
     layout_view = LayoutView(controller)
 
@@ -42,6 +44,7 @@ def main(page: ft.Page):
 
     page.title = "FLET PDF"
     page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#1A1C1E"
 
     page.add(layout_view.main_layout)
     controller.navigation_rail(0, False)

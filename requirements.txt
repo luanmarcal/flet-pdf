@@ -1,2 +1,4 @@
 flet==0.22.*
 PyMuPDF==1.24.*
+Pyrebase4==4.8.*
+# firebase-admin==6.5.*

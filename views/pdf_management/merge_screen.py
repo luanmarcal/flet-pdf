@@ -80,12 +80,6 @@ class MergeScreen:
                     tooltip="Confirmar",
                     on_click=lambda _: self.controller.save_file(),
                 ),
-                ft.IconButton(
-                    icon=ft.icons.REMOVE_RED_EYE_OUTLINED,
-                    icon_color="#2E3136",
-                    icon_size=30,
-                    tooltip="Visualizar",
-                ),
             ],
         )
 

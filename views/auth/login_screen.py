@@ -10,10 +10,11 @@ class LoginScreen:
         self.username_field.value = ""
         self.password_field.value = ""
 
-    def on_login_click(self, _):
+    def on_login_click(self, guest=False):
         self.controller.login(
             self.username_field.value,
             self.password_field.value,
+            guest=guest,
         )
         self.clear_fields()
 
@@ -47,7 +48,7 @@ class LoginScreen:
 
         self.login_button = ft.FilledButton(
             text="Entrar",
-            on_click=self.on_login_click,
+            on_click=lambda _: self.on_login_click(guest=False),
             width=300,
             style=ft.ButtonStyle(
                 bgcolor="#B7BBC2",
@@ -73,9 +74,9 @@ class LoginScreen:
 
         self.text_aux = ft.Text("ou", size=15, weight=ft.FontWeight.W_100)
 
-        self.button_guest = ft.TextButton(
+        self.button_guest = ft.FilledButton(
             text="Continuar como convidado",
-            on_click=self.on_login_click,
+            on_click=lambda _: self.on_login_click(guest=True),
             width=300,
             style=ft.ButtonStyle(
                 bgcolor="#252728",

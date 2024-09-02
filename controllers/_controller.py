@@ -2,9 +2,10 @@ import flet as ft
 
 
 class Controller:
-    def __init__(self, page: ft.Page, model):
+    def __init__(self, page: ft.Page, model, firebase):
         self.page = page
         self.model = model
+        self.firebase = firebase
         self.settings()
 
     def settings(self):
@@ -39,15 +40,33 @@ class Controller:
         self.image_to_pdf_screen = image_to_pdf_screen
         self.pdf_to_image_screen = pdf_to_image_screen
 
-    def login(self, username, password):
-        print(username, password)
-        self.navigation_route("/home")
+    def login(self, username, password, guest=False):
+        if guest:
+            self.navigation_route("/home")
+            return
+
+        user = self.firebase.login(username, password)
+        print(user)
+        if user.get("idToken"):
+            self.navigation_route("/home")
+            email = user.get("email")
+            username = email.split("@")[0]
+            self.pdf_management_view.user.text = username if username else "Convidado"
+            self.pdf_management_view.user.update()
+        else:
+            print("Error: Invalid login")
 
     def register(self, username, password, confirm_password):
-        print(username, password, confirm_password)
-        self.navigation_route("/home")
+        user = self.firebase.sign_up(username, password, confirm_password)
+        if user.get("idToken"):
+            self.navigation_route("/home")
+        else:
+            print("Error: Invalid register")
 
     def logout(self):
+        self.pdf_management_view.user.text = "Convidado"
+        self.pdf_management_view.user.update()
+        self.firebase.revoke_token()
         self.navigation_route("/login")
 
     def navigation_route(self, index):
