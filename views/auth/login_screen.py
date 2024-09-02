@@ -28,8 +28,14 @@ class LoginScreen:
         #     height=250,
         # )
 
+        # self.spacebox = ft.Column(
+        #     controls=[ft.Text(" ")],
+        #     alignment=ft.MainAxisAlignment.CENTER,
+        #     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        # )
+
         self.username_field = ft.TextField(
-            label="Usuário", width=300, border_color="#B7BBC2"
+            label="E-mail", width=300, border_color="#B7BBC2"
         )
         self.password_field = ft.TextField(
             label="Senha",
@@ -37,12 +43,6 @@ class LoginScreen:
             can_reveal_password=True,
             width=300,
             border_color="#B7BBC2",
-        )
-
-        self.spacebox = ft.Column(
-            controls=[ft.Text(" ")],
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         self.login_button = ft.FilledButton(
@@ -89,21 +89,18 @@ class LoginScreen:
         self.content_column = ft.Column(
             controls=[
                 ft.Text("FLET PDF", size=30, weight=ft.FontWeight.W_100),
-                self.spacebox,
                 # self.lottie,
                 self.username_field,
                 self.password_field,
-                self.spacebox,
                 self.login_button,
                 self.register_button,
-                self.spacebox,
                 self.text_aux,
-                self.spacebox,
                 self.button_guest,
             ],
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             scroll=ft.ScrollMode.AUTO,
+            spacing=20,
         )
 
         self.login_layout = ft.Container(
